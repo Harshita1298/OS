@@ -2,10 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap');
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Nunito',sans-serif;background:#0f0c29;color:#fff;min-height:100vh;}
+  body{font-family:'Nunito',sans-serif;background:#0f0c29;color:#fff;min-height:100vh;padding-bottom:70px;}
   .header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);padding:20px;text-align:center;border-bottom:3px solid #e94560;}
   .header h1{font-family:'Baloo 2',cursive;font-size:1.8em;color:#fff;text-shadow:0 0 20px #e94560;}
   .header p{color:#a8b2d8;font-size:0.85em;margin-top:5px;}
@@ -58,6 +59,22 @@
   ::-webkit-scrollbar-thumb{background:#e94560;border-radius:5px;}
   .footer{background:#111526;color:#a8b2d8;text-align:center;padding:14px 16px;border-top:1px solid #16213e;font-size:0.85em;}
   .footer strong{color:#e94560;}
+  @media (max-width: 700px) {
+    body{padding-bottom:80px;}
+    .header{padding:16px;}
+    .header h1{font-size:1.45em;}
+    .tabs{padding:6px 8px;gap:4px;}
+    .tab{padding:7px 10px;font-size:0.72em;}
+    .content{padding:12px;}
+    .card{padding:12px;}
+    .card h3{font-size:0.95em;}
+    .section-title{font-size:1em;}
+    .table-wrap{margin:6px 0;}
+    table{font-size:0.72em;}
+    .formula{font-size:0.82em;padding:8px;}
+    .solved h4{font-size:0.82em;}
+    .solved p,.solved li,.card p,.card li{font-size:0.78em;}
+  }
 </style>
 </head>
 <body>
