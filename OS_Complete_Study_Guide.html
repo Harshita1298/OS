@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Nunito',sans-serif;background:#0f0c29;color:#fff;min-height:100vh;}
+  .header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);padding:20px;text-align:center;border-bottom:3px solid #e94560;}
+  .header h1{font-family:'Baloo 2',cursive;font-size:1.8em;color:#fff;text-shadow:0 0 20px #e94560;}
+  .header p{color:#a8b2d8;font-size:0.85em;margin-top:5px;}
+  .exam-badge{display:inline-block;background:#e94560;color:#fff;padding:4px 14px;border-radius:20px;font-size:0.8em;font-weight:800;margin-top:8px;animation:pulse 1.5s infinite;}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(233,69,96,0.4);}50%{box-shadow:0 0 0 10px rgba(233,69,96,0);}}
+  
+  .tabs{display:flex;overflow-x:auto;background:#16213e;padding:8px 10px;gap:6px;border-bottom:2px solid #0f3460;}
+  .tab{flex-shrink:0;padding:8px 14px;border-radius:20px;cursor:pointer;font-size:0.78em;font-weight:700;border:none;transition:all 0.3s;}
+  .tab.active{background:#e94560;color:#fff;}
+  .tab:not(.active){background:#0f3460;color:#a8b2d8;}
+  
+  .content{padding:14px;max-height:70vh;overflow-y:auto;}
+  .unit{display:none;}
+  .unit.active{display:block;}
+  
+  .card{background:linear-gradient(135deg,#1a1a3e,#16213e);border:1px solid #0f3460;border-radius:12px;padding:14px;margin-bottom:14px;border-left:4px solid #e94560;}
+  .card.green{border-left-color:#00d2aa;}
+  .card.yellow{border-left-color:#ffd700;}
+  .card.blue{border-left-color:#4da6ff;}
+  .card.purple{border-left-color:#c77dff;}
+  
+  .card h3{font-family:'Baloo 2',cursive;font-size:1em;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .card p,.card li{font-size:0.82em;line-height:1.7;color:#c5cde8;}
+  .card ul{padding-left:18px;}
+  .card li{margin-bottom:3px;}
+  
+  .formula{background:#0a0a1a;border:1px solid #4da6ff;border-radius:8px;padding:10px;margin:8px 0;font-family:monospace;font-size:0.85em;color:#4da6ff;text-align:center;}
+  .solved{background:#0d1f0d;border:1px solid #00d2aa;border-radius:8px;padding:12px;margin:8px 0;}
+  .solved h4{color:#00d2aa;font-size:0.85em;margin-bottom:6px;font-weight:800;}
+  .solved p,.solved li{color:#b8f0d8;font-size:0.8em;line-height:1.7;}
+  .solved ul{padding-left:16px;}
+  
+  .highlight{background:#e94560;color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;font-size:0.85em;}
+  .badge{display:inline-block;background:#0f3460;color:#4da6ff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:700;margin:2px;}
+  
+  .table-wrap{overflow-x:auto;margin:8px 0;}
+  table{border-collapse:collapse;width:100%;font-size:0.78em;}
+  th{background:#0f3460;color:#4da6ff;padding:7px 10px;text-align:left;}
+  td{padding:6px 10px;border-bottom:1px solid #1a2a4a;color:#c5cde8;}
+  tr:nth-child(even) td{background:#0d1520;}
+  
+  .tip{background:#2d1b00;border:1px solid #ffd700;border-radius:8px;padding:10px;margin:8px 0;}
+  .tip p{color:#ffd700;font-size:0.8em;}
+  .tip::before{content:"⭐ EXAM TIP: ";font-weight:800;color:#ffd700;}
+  
+  .section-title{font-family:'Baloo 2',cursive;font-size:1.1em;color:#e94560;margin:16px 0 8px;border-bottom:1px solid #e9456030;padding-bottom:4px;}
+  
+  ::-webkit-scrollbar{width:5px;height:5px;}
+  ::-webkit-scrollbar-track{background:#16213e;}
+  ::-webkit-scrollbar-thumb{background:#e94560;border-radius:5px;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>📚 OS Complete Study Guide — CSE 207</h1>
+<div class="tabs">
+  <button class="tab active" onclick="show('u1',this)">Unit 1: Intro</button>
+  <button class="tab" onclick="show('u2',this)">Unit 2: Processes</button>
+  <button class="tab" onclick="show('u3',this)">Unit 3: CPU+Deadlock</button>
+  <button class="tab" onclick="show('u4',this)">Unit 4: Memory</button>
+  <button class="tab" onclick="show('u5',this)">📝 PYQ Solved</button>
+  <button class="tab" onclick="show('u6',this)">🎯 Quick Revision</button>
+</div>
+
+<div class="content">
+
+<!-- UNIT 1 -->
+<div class="unit active" id="u1">
+  <div class="section-title">📌 Unit 1 — Introduction to Operating Systems</div>
+  
+  <div class="card">
+    <h3>🖥️ What is an Operating System?</h3>
+    <p>An OS is a <strong>software</strong> that acts as an <strong>interface</strong> between the user and the hardware.</p>
+    <ul>
+      <li><strong>Resource Manager</strong> — manages CPU, memory, and I/O</li>
+      <li><strong>User Interface</strong> — provides a GUI or CLI</li>
+      <li><strong>Program Execution</strong> — loads and runs programs</li>
+      <li><strong>Error Detection</strong> — detects and handles errors</li>
+    </ul>
+  </div>
+
+  <div class="card green">
+    <h3>🗂️ Types of Operating Systems</h3>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Type</th><th>Description</th><th>Example</th></tr>
+      <tr><td>Batch OS</td><td>Jobs are processed in batches with no interaction</td><td>Early IBM</td></tr>
+      <tr><td>Time-Sharing</td><td>Multiple users share CPU time simultaneously</td><td>UNIX</td></tr>
+      <tr><td>Real-Time OS</td><td>Strict time deadlines, guaranteed response</td><td>RTOS, VxWorks</td></tr>
+      <tr><td>Multiprocessor</td><td>Multiple CPUs in a single system</td><td>Modern servers</td></tr>
+      <tr><td>Multiuser</td><td>Multiple users at the same time</td><td>Linux servers</td></tr>
+      <tr><td>Multithreaded</td><td>Multiple threads within a single process</td><td>Windows, Linux</td></tr>
+      <tr><td>Distributed</td><td>Multiple computers working as one unit</td><td>Cloud OS</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <h3>🏗️ OS Structure</h3>
+    <ul>
+      <li><strong>Monolithic Kernel:</strong> All services run in the kernel — fast but less secure. Example: Linux, UNIX</li>
+      <li><strong>Microkernel:</strong> Only basic services run in the kernel, the rest run in user space — more secure but slower. Example: Mach, QNX</li>
+      <li><strong>Layered Structure:</strong> The OS is divided into layers, and each layer uses services from the layer below.</li>
+    </ul>
+    <div class="tip"><p>A comparison of Monolithic and Microkernel structures definitely appears on exams!</p></div>
+  </div>
+
+  <div class="card yellow">
+    <h3>⚙️ System Components</h3>
+    <ul>
+      <li><strong>Process Management</strong> — Process creation, scheduling, termination</li>
+      <li><strong>Memory Management</strong> — Memory allocate/deallocate karna</li>
+      <li><strong>File Management</strong> — File create, delete, read, write</li>
+      <li><strong>I/O Management</strong> — I/O devices control karna</li>
+      <li><strong>Secondary Storage</strong> — Disk management</li>
+      <li><strong>Protection & Security</strong> — Access control</li>
+    </ul>
+  </div>
+
+  <div class="card purple">
+    <h3>🔄 Reentrant Kernels</h3>
+    <p>A kernel is reentrant when multiple processes can execute kernel code simultaneously without interfering with each other.</p>
+    <ul>
+      <li>Uses shared kernel code</li>
+      <li>Each process maintains its own kernel stack</li>
+      <li>Essential in multiprocessing environments</li>
+    </ul>
+  </div>
+</div>
+
+<!-- UNIT 2 -->
+<div class="unit" id="u2">
+  <div class="section-title">📌 Unit 2 — Concurrent Processes & Synchronization</div>
+  
+  <div class="card">
+    <h3>⚡ Process Concept & States</h3>
+    <p><strong>Process</strong> = Program in execution (running program)</p>
+    <div class="table-wrap">
+    <table>
+      <tr><th>State</th><th>Meaning</th></tr>
+      <tr><td>New</td><td>Process abhi create hua</td></tr>
+      <tr><td>Ready</td><td>Waiting for the CPU</td></tr>
+      <tr><td>Running</td><td>Using the CPU</td></tr>
+      <tr><td>Blocked/Waiting</td><td>Waiting for I/O</td></tr>
+      <tr><td>Terminated</td><td>Execution complete</td></tr>
+    </table>
+    </div>
+    <div class="tip"><p>Transitions: New→Ready, Ready→Running, Running→Ready(preempt), Running→Blocked, Blocked→Ready, Running→Terminated</p></div>
+  </div>
+
+  <div class="card green">
+    <h3>🔒 Critical Section Problem</h3>
+    <p>When multiple processes access shared data, a <strong>race condition</strong> can occur.</p>
+    <p><strong>Critical Section</strong> = the part of code where a shared resource is accessed.</p>
+    <br>
+    <p><strong>3 Requirements for Solution:</strong></p>
+    <ul>
+      <li><span class="highlight">Mutual Exclusion</span> — only one process may be in the critical section at a time</li>
+      <li><span class="highlight">Progress</span> — if no process is in the critical section, a waiting process can enter</li>
+      <li><span class="highlight">Bounded Waiting</span> — no process waits forever</li>
+    </ul>
+  </div>
+
+  <div class="card blue">
+    <h3>🔑 What is Mutual Exclusion?</h3>
+    <p>Only one process should be in the <strong>critical section</strong> at a time. This is <strong>Mutual Exclusion</strong>.</p>
+    <br>
+    <p><strong>Solutions:</strong></p>
+    <ul>
+      <li>Dekker's Algorithm</li>
+      <li>Peterson's Algorithm (common in exams!)</li>
+      <li>Semaphores</li>
+      <li>Monitors</li>
+    </ul>
+  </div>
+
+  <div class="card yellow">
+    <h3>🧪 Peterson's Solution (2 processes)</h3>
+    <p>Two shared variables: <code>flag[2]</code> aur <code>turn</code></p>
+    <div class="solved">
+      <h4>Algorithm for Process Pi:</h4>
+      <p>flag[i] = true;  // "I want to enter the critical section"</p>
+      <p>turn = j;        // "Let the other process go first"</p>
+      <p>while (flag[j] && turn == j);  // Wait</p>
+      <p>--- CRITICAL SECTION ---</p>
+      <p>flag[i] = false;  // "Main bahar hoon"</p>
+    </div>
+    <div class="tip"><p>Peterson's solution satisfies all 3 conditions: Mutual Exclusion ✓, Progress ✓, Bounded Waiting ✓</p></div>
+  </div>
+
+  <div class="card purple">
+    <h3>🚦 Semaphores</h3>
+    <p>A semaphore is an <strong>integer variable</strong> that supports two atomic operations:</p>
+    <ul>
+      <li><strong>wait(S) / P(S):</strong> S-- ; if S<0 then block</li>
+      <li><strong>signal(S) / V(S):</strong> S++ ; if S≤0 then wake one blocked process</li>
+    </ul>
+    <br>
+    <p><strong>Types:</strong></p>
+    <ul>
+      <li><strong>Binary Semaphore (Mutex):</strong> only 0 or 1 — used for mutual exclusion</li>
+      <li><strong>Counting Semaphore:</strong> any integer — used for counting resources</li>
+    </ul>
+    <div class="tip"><p>Test and Set = a hardware solution for mutual exclusion. It is an atomic operation.</p></div>
+  </div>
+
+  <div class="card">
+    <h3>🍝 Dining Philosopher Problem</h3>
+    <p>Five philosophers sit at a table. There are 5 chopsticks (forks). Each needs <strong>2 chopsticks</strong> to eat.</p>
+    <p><strong>Problem:</strong> If everyone picks up the left chopstick at the same time → <span class="highlight">DEADLOCK</span>!</p>
+    <br>
+    <p><strong>Solutions:</strong></p>
+    <ul>
+      <li>Have one philosopher pick the right chopstick first (asymmetric)</li>
+      <li>Allow at most 4 philosophers at the table</li>
+      <li>Pick up both chopsticks together (atomically)</li>
+      <li>Use semaphores</li>
+    </ul>
+  </div>
+
+  <div class="card green">
+    <h3>💈 Sleeping Barber Problem</h3>
+    <p>In a barber shop: 1 barber, N waiting chairs.</p>
+    <ul>
+      <li>If there is no customer → the barber sleeps</li>
+      <li>If a customer arrives and the barber is sleeping → he wakes up</li>
+      <li>If the waiting chairs are full → the customer leaves</li>
+    </ul>
+    <p><strong>Solution:</strong> Use semaphores for customers, barbers, and mutexes</p>
+  </div>
+
+  <div class="card blue">
+    <h3>🔄 Producer-Consumer Problem</h3>
+    <p>Producer produces data, Consumer consumes it. There is a shared buffer.</p>
+    <ul>
+      <li><strong>mutex</strong> = 1 (binary semaphore for buffer access)</li>
+      <li><strong>empty</strong> = N (counting semaphore for empty slots)</li>
+      <li><strong>full</strong> = 0 (counting semaphore for filled slots)</li>
+    </ul>
+    <div class="solved">
+      <h4>Producer: wait(empty) → wait(mutex) → add item → signal(mutex) → signal(full)</h4>
+      <h4>Consumer: wait(full) → wait(mutex) → remove item → signal(mutex) → signal(empty)</h4>
+    </div>
+  </div>
+
+  <div class="card yellow">
+    <h3>📨 IPC — Inter Process Communication</h3>
+    <p>Two models of communication between processes:</p>
+    <ul>
+      <li><strong>Shared Memory:</strong> a shared memory area where processes read/write directly. Fast but requires synchronization.</li>
+      <li><strong>Message Passing:</strong> send() and receive() calls. Slower but safer. Examples: pipes, sockets, message queues.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- UNIT 3 -->
+<div class="unit" id="u3">
+  <div class="section-title">📌 Unit 3 — CPU Scheduling, Deadlock & Disk Scheduling</div>
+
+  <div class="card">
+    <h3>📊 CPU Scheduling Performance Indicators</h3>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Indicator</th><th>Meaning</th><th>Goal</th></tr>
+      <tr><td>CPU Utilization</td><td>CPU busy time / Total time × 100</td><td>Maximize (40-90%)</td></tr>
+      <tr><td>Throughput</td><td>Processes completed per unit time</td><td>Maximize</td></tr>
+      <tr><td>Turnaround Time</td><td>Completion - Arrival time</td><td>Minimize</td></tr>
+      <tr><td>Waiting Time</td><td>Turnaround - Burst time</td><td>Minimize</td></tr>
+      <tr><td>Response Time</td><td>First response - Arrival time</td><td>Minimize</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h3>⚡ Scheduling Algorithms</h3>
+    <ul>
+      <li><strong>FCFS</strong> — First Come First Serve. Simple but can suffer from the Convoy Effect.</li>
+      <li><strong>SJF</strong> — Shortest Job First. Minimum average waiting time. Non-preemptive.</li>
+      <li><strong>SRTF</strong> — Shortest Remaining Time First. Preemptive SJF.</li>
+      <li><strong>Round Robin</strong> — uses a time quantum. Preemptive and fair!</li>
+      <li><strong>Priority</strong> — higher priority runs first. Can lead to starvation.</li>
+      <li><strong>Multilevel Queue</strong> — multiple queues with different priorities.</li>
+    </ul>
+    <div class="tip"><p>Convoy Effect = in FCFS, a long CPU-bound process holds the CPU and delays all other processes!</p></div>
+  </div>
+
+  <div class="solved">
+    <h4>✅ SOLVED — Test Paper Q3: CPU Utilization from Gantt Chart</h4>
+    <p>Gantt Chart: P1(0-20), idle(20-25), P2(25-35), P3(35-45), P2(45-55), P3(55-60), P4(60-75), P2(75-80), P3(80-90), idle(90-100), P5(100-105), P6(105-115), P5(115-120)</p>
+    <p>Total Time = 120 ms</p>
+    <p>Idle Time = (25-20) + (100-90) = 5 + 10 = <strong>15 ms</strong></p>
+    <p>CPU Busy Time = 120 - 15 = <strong>105 ms</strong></p>
+    <p><strong>CPU Utilization = 105/120 × 100 = 87.5%</strong></p>
+  </div>
+
+  <div class="card blue">
+    <h3>🔴 Deadlock — Definition & Conditions</h3>
+    <p>Deadlock = one or more processes are in a state where each is waiting for another permanently.</p>
+    <br>
+    <p><strong>4 Necessary Conditions (Coffman's Conditions):</strong></p>
+    <ul>
+      <li><span class="highlight">Mutual Exclusion</span> — a resource can be used by only one process at a time</li>
+      <li><span class="highlight">Hold and Wait</span> — a process holds a resource while requesting another</li>
+      <li><span class="highlight">No Preemption</span> — a resource cannot be forcibly taken away</li>
+      <li><span class="highlight">Circular Wait</span> — a circular chain like P1→P2→P3→P1</li>
+    </ul>
+    <div class="tip"><p>All 4 conditions must hold together for deadlock! Break any one → no deadlock.</p></div>
+  </div>
+
+  <div class="card yellow">
+    <h3>🛡️ Deadlock Handling Methods</h3>
+    <ul>
+      <li><strong>Prevention:</strong> break one of the 4 conditions permanently</li>
+      <li><strong>Avoidance:</strong> Banker's Algorithm — check for a safe state first</li>
+      <li><strong>Detection & Recovery:</strong> allow deadlock, detect it, and recover</li>
+      <li><strong>Ostrich Algorithm:</strong> ignore it (used in many real systems!)</li>
+    </ul>
+  </div>
+
+  <div class="card purple">
+    <h3>🏦 Banker's Algorithm</h3>
+    <p>Available resources are checked to see whether allocation will remain in a <strong>safe state</strong>.</p>
+    <br>
+    <p><strong>Key matrices:</strong></p>
+    <ul>
+      <li><strong>Allocation</strong> = Abhi kise kitna mila</li>
+      <li><strong>Max</strong> = Maximum kitna chahiye</li>
+      <li><strong>Need = Max - Allocation</strong></li>
+      <li><strong>Available</strong> = how much remains free in the system</li>
+    </ul>
+    <div class="formula">Need[i][j] = Max[i][j] - Allocation[i][j]</div>
+    <p><strong>Safe Sequence:</strong> Find a process whose Need ≤ Available, run it, free its resources, repeat.</p>
+  </div>
+
+  <div class="solved">
+    <h4>✅ SOLVED — PYQ: 6 Tape Drives, Each Process needs max 2</h4>
+    <p><strong>Formula:</strong> System deadlock-free if: Resources > n(max_need - 1)</p>
+    <p>6 > n(2-1) = n</p>
+    <p><strong>Maximum n = 5 (always deadlock free)</strong></p>
+    <p>Minimum n = 1</p>
+    <p><em>With n=5: worst case each holds 1 drive = 5 drives held, 1 free → progress guaranteed!</em></p>
+  </div>
+
+  <div class="card">
+    <h3>💿 Disk Scheduling Algorithms</h3>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Algorithm</th><th>How it works</th></tr>
+      <tr><td>FCFS</td><td>Process in the order requests arrive. Simple but not efficient.</td></tr>
+      <tr><td>SSTF</td><td>Nearest cylinder first. Better, but starvation is possible.</td></tr>
+      <tr><td>SCAN (Elevator)</td><td>Move in one direction, then reverse at the end.</td></tr>
+      <tr><td>C-SCAN</td><td>Move in one direction only, then jump back to the beginning.</td></tr>
+      <tr><td>LOOK</td><td>Like SCAN but only goes as far as the last request, not the disk end.</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="solved">
+    <h4>✅ SOLVED — PYQ Q9(a): Disk Scheduling</h4>
+    <p>Queue: 98,183,37,122,14,124,65,67 | Head=53</p>
+    <br>
+    <p><strong>FCFS:</strong> 53→98→183→37→122→14→124→65→67</p>
+    <p>Movements: 45+85+146+85+108+110+59+2 = <strong>640 cylinders</strong></p>
+    <br>
+    <p><strong>SSTF:</strong> 53→65→67→37→14→98→122→124→183</p>
+    <p>Movements: 12+2+30+23+84+24+2+59 = <strong>236 cylinders</strong></p>
+  </div>
+
+  <div class="card green">
+    <h3>🔁 Round Robin Quantum Size</h3>
+    <p>n processes, each switch takes 's' seconds. CPU overhead from switching minimized when:</p>
+    <div class="formula">Quantum 'q' should be >> context switch time 's'</div>
+    <p>Minimum quantum such that each process gets turn every 't' seconds:</p>
+    <div class="formula">q ≥ (t - n×s) / n</div>
+  </div>
+</div>
+
+<!-- UNIT 4 -->
+<div class="unit" id="u4">
+  <div class="section-title">📌 Unit 4 — Memory Management</div>
+
+  <div class="card">
+    <h3>💾 Cache Memory</h3>
+    <div class="formula">AMAT = h × Tc + (1-h) × (Tc + Tm)</div>
+    <p>Where: h=hit rate, Tc=cache time, Tm=main memory time</p>
+    <div class="solved">
+      <h4>✅ SOLVED — Test Paper Q1: Average Memory Access Time</h4>
+      <p>Cache hit time (Tc) = 3 ns | Main memory (Tm) = 30 ns | Hit rate (h) = 80% = 0.8</p>
+      <p>AMAT = 0.8 × 3 + 0.2 × (3 + 30)</p>
+      <p>= 2.4 + 0.2 × 33</p>
+      <p>= 2.4 + 6.6</p>
+      <p><strong>= 9 ns ✅</strong></p>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h3>🕐 Test Paper Q2: Clock Cycles</h3>
+    <div class="formula">Clock Period = 1/Frequency | Cycles = Time / Period</div>
+    <div class="solved">
+      <h4>✅ SOLVED</h4>
+      <p>Clock = 500 MHz → Period = 1/500×10⁶ = 2 ns</p>
+      <p>Memory access = 30 ns</p>
+      <p><strong>Clock Cycles = 30/2 = 15 cycles ✅</strong></p>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <h3>💰 Test Paper Q4: Memory Hierarchy Cost</h3>
+    <div class="formula">Avg Cost/bit = (C1×S1 + C2×S2) / (S1 + S2)</div>
+    <div class="solved">
+      <h4>✅ Formula Applied</h4>
+      <p>M1: Size=S1, Cost/bit=C1</p>
+      <p>M2: Size=S2, Cost/bit=C2</p>
+      <p><strong>Average Cost = (C1×S1 + C2×S2) / (S1 + S2)</strong></p>
+      <p><em>Note: For this to be economical: C2 &lt;&lt; C1 and S2 &gt;&gt; S1</em></p>
+    </div>
+  </div>
+
+  <div class="card yellow">
+    <h3>📄 Paging</h3>
+    <p>Divide physical memory into <strong>frames</strong> and logical memory into <strong>pages</strong>. Both are the same size!</p>
+    <div class="formula">
+      Physical Address = Frame_Number × Frame_Size + Offset<br>
+      Page Number = Logical Address / Page Size<br>
+      Offset = Logical Address % Page Size
+    </div>
+    <div class="solved">
+      <h4>✅ SOLVED — PYQ: Logical=8 pages×1024 words, Physical=32 frames</h4>
+      <p>Logical address bits = log₂(8×1024) = log₂(8192) = <strong>13 bits</strong></p>
+      <p>Page number bits = log₂(8) = 3 bits</p>
+      <p>Offset bits = log₂(1024) = 10 bits</p>
+      <p>Physical address bits = log₂(32) + 10 = 5+10 = <strong>15 bits</strong></p>
+    </div>
+  </div>
+
+  <div class="card purple">
+    <h3>🔍 TLB & Effective Access Time (EAT)</h3>
+    <p>TLB = Translation Lookaside Buffer — Fast hardware cache for page table</p>
+    <div class="formula">EAT = α(TLB + Memory) + (1-α)(TLB + 2×Memory)</div>
+    <p>α = TLB hit ratio</p>
+    <div class="solved">
+      <h4>✅ SOLVED — PYQ: Memory=200ns, TLB hit=75%</h4>
+      <p>Without TLB: 2 × 200 = 400 ns (page table + data)</p>
+      <p>EAT = 0.75×200 + 0.25×400</p>
+      <p>= 150 + 100</p>
+      <p><strong>EAT = 250 ns ✅</strong></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🗂️ Segmentation</h3>
+    <p>Divide memory into variable-size <strong>segments</strong> (code, data, stack).</p>
+    <div class="formula">Physical Address = Base[segment] + Offset<br>Condition: Offset < Limit (else TRAP!)</div>
+    <div class="solved">
+      <h4>✅ SOLVED — PYQ Segment Table</h4>
+      <p>Segment Table: 0→(Base=219,Len=600), 1→(2300,14), 2→(90,100), 3→(1327,580), 4→(1952,96)</p>
+      <p>(i) 0430 → Seg=0, offset=430. 430&lt;600 ✓ → PA = 219+430 = <strong>649</strong></p>
+      <p>(ii) 0110 → Seg=1, offset=10. 10&lt;14 ✓ → PA = 2300+10 = <strong>2310</strong></p>
+      <p>(iii) 2500 → Seg=2, offset=500. 500&gt;100 ✗ → <strong>TRAP! Segment Violation</strong></p>
+      <p>(iv) 3400 → Seg=3, offset=400. 400&lt;580 ✓ → PA = 1327+400 = <strong>1727</strong></p>
+      <p>(v) 4112 → Seg=4, offset=112. 112&gt;96 ✗ → <strong>TRAP! Segment Violation</strong></p>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h3>🔄 Page Replacement Algorithms</h3>
+    <ul>
+      <li><strong>FIFO:</strong> first in, first out replacement. Belady's Anomaly can occur!</li>
+      <li><strong>Optimal (OPT):</strong> replace the page that will be used farthest in the future. Best but impractical.</li>
+      <li><strong>LRU:</strong> Least Recently Used. Best practical algorithm.</li>
+    </ul>
+    <div class="tip"><p>Belady's Anomaly = in FIFO, increasing the number of frames can increase page faults! This does not happen in OPT or LRU.</p></div>
+  </div>
+
+  <div class="solved">
+    <h4>✅ SOLVED — PYQ Q8(a): FIFO vs Optimal, Reference: 7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1 (3 frames)</h4>
+    <div style="overflow-x:auto;">
+    <table style="font-size:0.72em;min-width:600px;">
+      <tr><th>Ref</th><th>7</th><th>0</th><th>1</th><th>2</th><th>0</th><th>3</th><th>0</th><th>4</th><th>2</th><th>3</th><th>0</th><th>3</th><th>2</th><th>1</th><th>2</th><th>0</th><th>1</th><th>7</th><th>0</th><th>1</th></tr>
+      <tr><td>F1</td><td>7</td><td>7</td><td>7</td><td>2</td><td>2</td><td>2</td><td>2</td><td>4</td><td>4</td><td>3</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>7</td><td>7</td><td>7</td></tr>
+      <tr><td>F2</td><td>-</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+      <tr><td>F3</td><td>-</td><td>-</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>FIFO</td><td>F</td><td>F</td><td>F</td><td>F</td><td>-</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>-</td><td>-</td><td>F</td><td>F</td><td>-</td><td>-</td><td>F</td><td>F</td><td>F</td></tr>
+    </table>
+    </div>
+    <p style="color:#ffd700;font-size:0.82em;margin-top:6px;"><strong>FIFO Page Faults = 15 | Rate = 15/20 = 75%</strong></p>
+    <p style="color:#00d2aa;font-size:0.82em;"><strong>Optimal Page Faults = 9 | Rate = 9/20 = 45%</strong></p>
+  </div>
+
+  <div class="card blue">
+    <h3>🌐 Virtual Memory & Thrashing</h3>
+    <ul>
+      <li><strong>Virtual Memory:</strong> use disk as an extension of RAM. The process is not fully loaded into memory.</li>
+      <li><strong>Demand Paging:</strong> load a page only when it is needed</li>
+      <li><strong>Page Fault:</strong> when the required page is not in memory</li>
+      <li><strong>Thrashing:</strong> when a process generates so many page faults that little useful work is done. Often due to too many processes.</li>
+      <li><strong>Working Set:</strong> the set of pages recently used — helps prevent thrashing</li>
+    </ul>
+  </div>
+
+  <div class="card yellow">
+    <h3>📦 Memory Allocation Strategies</h3>
+    <ul>
+      <li><strong>First Fit:</strong> Pehla suitable hole. Fast.</li>
+      <li><strong>Best Fit:</strong> choose the smallest suitable hole. Minimizes waste but is slower.</li>
+      <li><strong>Worst Fit:</strong> choose the largest hole. Reduces fragmentation for large blocks.</li>
+    </ul>
+    <br>
+    <p><strong>Fragmentation:</strong></p>
+    <ul>
+      <li><strong>Internal Fragmentation:</strong> Allocated memory > needed (extra waste inside)</li>
+      <li><strong>External Fragmentation:</strong> free memory exists but is not contiguous</li>
+    </ul>
+    <div class="tip"><p>Paging solves External Fragmentation! Segmentation solves Internal Fragmentation!</p></div>
+  </div>
+</div>
+
+<!-- PYQ SOLVED -->
+<div class="unit" id="u5">
+  <div class="section-title">📝 Previous Year Paper — Complete Solutions</div>
+
+  <div class="card">
+    <h3>Section A — Q1(a): Tape Drives & Deadlock</h3>
+    <div class="solved">
+      <h4>Q: 6 tape drives, n processes (each needs max 2). Deadlock-free n?</h4>
+      <p>For always deadlock-free: Total resources > n × (max_per_process - 1)</p>
+      <p>6 > n × (2-1) → 6 > n</p>
+      <p><strong>Maximum n = 5 | Minimum n = 1</strong></p>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h3>Section A — Q1(b): Convoy Effect</h3>
+    <div class="solved">
+      <h4>Answer:</h4>
+      <p>The Convoy Effect occurs in FCFS scheduling when one <strong>large CPU-bound process</strong> holds the CPU and smaller I/O-bound processes queue up behind it like a convoy. Result: low CPU utilization and poor response time.</p>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <h3>Section A — Q1(c): Resource Partitioning vs Pool-based</h3>
+    <div class="solved">
+      <h4>Resource Partitioning Approach:</h4>
+      <ul>
+        <li>Divide resources into groups, each for a specific process class</li>
+        <li>No sharing between classes</li>
+        <li>Simple, predictable but wasteful</li>
+      </ul>
+      <h4>Pool-based Approach:</h4>
+      <ul>
+        <li>All resources in a common pool</li>
+        <li>Any process can request any resource</li>
+        <li>Better utilization but needs synchronization</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card yellow">
+    <h3>Section A — Q1(e): CPU Scheduling Type in Diagram</h3>
+    <div class="solved">
+      <h4>Q: Which CPU scheduling algorithm is being used?</h4>
+      <p>The 5-state diagram (New, Ready, Running, Blocked, Terminated) shows <strong>preemptive scheduling</strong> — specifically <strong>Round Robin</strong> as evident from the Gantt chart with multiple preemptions.</p>
+    </div>
+  </div>
+
+  <div class="card purple">
+    <h3>Section B — Q2(a): Segment Table Physical Addresses</h3>
+    <div class="solved">
+      <h4>Segment Table: Seg0(Base=219,L=600), Seg1(2300,14), Seg2(90,100), Seg3(1327,580), Seg4(1952,96)</h4>
+      <p>(i) 0430 → Seg 0, offset 430 → 430&lt;600 ✓ → <strong>PA = 649</strong></p>
+      <p>(ii) 0110 → Seg 1, offset 10 → 10&lt;14 ✓ → <strong>PA = 2310</strong></p>
+      <p>(iii) 2500 → Seg 2, offset 500 → 500&gt;100 ✗ → <strong>TRAP (Segment Violation)</strong></p>
+      <p>(iv) 3400 → Seg 3, offset 400 → 400&lt;580 ✓ → <strong>PA = 1727</strong></p>
+      <p>(v) 4112 → Seg 4, offset 112 → 112&gt;96 ✗ → <strong>TRAP (Segment Violation)</strong></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Section B — Q3(a): TLB & EAT</h3>
+    <div class="solved">
+      <h4>Memory=200ns, TLB hit rate=75%, TLB access≈0</h4>
+      <p>Without TLB (simple paging): 2 accesses = 2×200 = <strong>400 ns</strong></p>
+      <p>EAT with TLB = 0.75×200 + 0.25×(2×200)</p>
+      <p>= 150 + 100 = <strong>250 ns</strong></p>
+      <p>TLB reduces EAT from 400 to 250 ns — saves 37.5%!</p>
+    </div>
+  </div>
+
+  <div class="card green">
+    <h3>Section B — Q3(b): Paging Scheme</h3>
+    <div class="solved">
+      <h4>8 pages × 1024 words/page, mapped to 32 physical frames</h4>
+      <p>(i) Logical address bits = log₂(8×1024) = log₂(8192) = <strong>13 bits</strong></p>
+      <p>Page number = 3 bits | Offset = 10 bits</p>
+      <p>(ii) Physical address bits = log₂(32×1024) = log₂(32768) = <strong>15 bits</strong></p>
+      <p>Frame number = 5 bits | Offset = 10 bits</p>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <h3>Section C — Q5: Internal vs External Fragmentation</h3>
+    <div class="solved">
+      <h4>Internal Fragmentation:</h4>
+      <p>In fixed-size partitions, allocated memory is larger than the actual need. Wasted space occurs inside the partition. This is internal fragmentation in paging.</p>
+      <h4>External Fragmentation:</h4>
+      <p>Free memory exists but is scattered (non-contiguous). The total free space may be enough but not contiguous. This is external fragmentation in segmentation. Solution = compaction.</p>
+    </div>
+  </div>
+
+  <div class="card yellow">
+    <h3>Section C — Q7(b): Virtual Address Translation</h3>
+    <div class="solved">
+      <h4>Virtual space=2³², Physical=2¹⁸, Page size=4096=2¹², VA=11123456(hex)</h4>
+      <p>Page offset bits = 12 (since page size = 2¹²)</p>
+      <p>Page number bits = 32-12 = 20 bits</p>
+      <p>VA = 11123456(hex) in binary (32 bits):</p>
+      <p>0001 0001 0001 0010 0011 | 0100 0101 0110</p>
+      <p>Page Number = 0x11123 | Offset = 0x456</p>
+      <p>System looks up page 0x11123 in page table → gets frame number → adds offset 0x456 → Physical Address</p>
+    </div>
+  </div>
+
+  <div class="card purple">
+    <h3>Section C — Q9(b): Dining Philosopher Problem</h3>
+    <div class="solved">
+      <h4>Problem:</h4>
+      <p>5 philosophers, 5 chopsticks. Philosopher alternates between thinking and eating. Needs 2 chopsticks (left + right) to eat.</p>
+      <h4>Deadlock Solution (Semaphore approach):</h4>
+      <p>chopstick[5] = {1,1,1,1,1} as semaphores</p>
+      <p>Philosopher i: wait(chopstick[i]) → wait(chopstick[(i+1)%5]) → EAT → signal(chopstick[i]) → signal(chopstick[(i+1)%5])</p>
+      <p><strong>Fix:</strong> One philosopher picks Right first, rest pick Left first. This breaks circular wait!</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Section C — Q8(a): Page Replacement FIFO vs Optimal</h3>
+    <div class="solved">
+      <h4>Reference: 7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1 | 3 frames</h4>
+      <p><strong>FIFO Result: 15 page faults (75% fault rate)</strong></p>
+      <p><strong>Optimal Result: 9 page faults (45% fault rate)</strong></p>
+      <p>Optimal is always the best possible — used as benchmark!</p>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK REVISION -->
+<div class="unit" id="u6">
+  <div class="section-title">🎯 LAST-MINUTE QUICK REVISION</div>
+
+  <div class="card">
+    <h3>📐 All Important Formulas</h3>
+    <div class="formula">AMAT = h × Tc + (1-h) × (Tc + Tm)</div>
+    <div class="formula">Average Memory Cost = (C1×S1 + C2×S2) / (S1 + S2)</div>
+    <div class="formula">Clock Cycles = Memory Time / Clock Period</div>
+    <div class="formula">Need = Max - Allocation (Banker's)</div>
+    <div class="formula">EAT with TLB = α(t+m) + (1-α)(t+2m)</div>
+    <div class="formula">CPU Utilization = (Total - Idle) / Total × 100</div>
+    <div class="formula">Turnaround Time = Completion - Arrival</div>
+    <div class="formula">Waiting Time = Turnaround - Burst</div>
+  </div>
+
+  <div class="card green">
+    <h3>✅ Most Important Topics (HIGH CHANCE IN EXAM)</h3>
+    <ul>
+      <li>🔥 Banker's Algorithm — saari matrices calculate karna</li>
+      <li>🔥 FIFO + Optimal page replacement with table</li>
+      <li>🔥 FCFS + SSTF disk scheduling</li>
+      <li>🔥 Paging — logical/physical address bits</li>
+      <li>🔥 Segment table — physical address calculate</li>
+      <li>🔥 Peterson's solution code</li>
+      <li>🔥 Dining Philosopher solution with semaphores</li>
+      <li>🔥 CPU scheduling formulas (waiting, turnaround)</li>
+      <li>🔥 Deadlock 4 conditions + Coffman</li>
+      <li>🔥 Cache AMAT formula</li>
+    </ul>
+  </div>
+
+  <div class="card blue">
+    <h3>⚡ One-Line Answers</h3>
+    <ul>
+      <li><strong>Thrashing</strong> = Too many page faults, no useful work done</li>
+      <li><strong>Convoy Effect</strong> = Small processes stuck behind big process in FCFS</li>
+      <li><strong>Belady's Anomaly</strong> = More frames → more faults in FIFO (paradox)</li>
+      <li><strong>Mutual Exclusion</strong> = Only 1 process in critical section at a time</li>
+      <li><strong>Semaphore</strong> = Integer variable with P() and V() operations</li>
+      <li><strong>TLB</strong> = Fast cache for page table lookups</li>
+      <li><strong>Working Set</strong> = Set of pages process recently used</li>
+      <li><strong>Spooling</strong> = Simultaneous Peripheral Operations Online (printer queue)</li>
+      <li><strong>PCB</strong> = Process Control Block — all info about a process</li>
+    </ul>
+  </div>
+
+  <div class="card yellow">
+    <h3>🆚 Important Comparisons</h3>
+    <div class="table-wrap">
+    <table>
+      <tr><th>Topic</th><th>A</th><th>B</th></tr>
+      <tr><td>Paging vs Segmentation</td><td>Fixed size, no external frag</td><td>Variable size, no internal frag</td></tr>
+      <tr><td>Monolithic vs Microkernel</td><td>Fast, less secure</td><td>Slow, more secure</td></tr>
+      <tr><td>FIFO vs LRU</td><td>Belady's Anomaly possible</td><td>No Belady's, better performance</td></tr>
+      <tr><td>Preemptive vs Non-preemptive</td><td>Can interrupt process</td><td>Process runs till completion/block</td></tr>
+      <tr><td>Shared Memory vs Message Passing</td><td>Fast, needs sync</td><td>Slow, safer</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="card purple">
+    <h3>📅 Last 2 Days Study Plan</h3>
+    <ul>
+      <li><strong>Today Evening:</strong> Unit 3 (CPU scheduling + Deadlock) — practice calculations</li>
+      <li><strong>Today Night:</strong> Unit 4 (Paging, page replacement tables) — do 2-3 problems</li>
+      <li><strong>Tomorrow Morning:</strong> Unit 2 (Peterson's, Semaphores, Dining Philosopher)</li>
+      <li><strong>Tomorrow Afternoon:</strong> Unit 1 + Quick revision of all formulas</li>
+      <li><strong>Before Exam:</strong> Read all one-liners and formulas once more!</li>
+    </ul>
+    <div class="tip"><p>All previous year paper questions are solved in this guide. Read them again and again!</p></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.unit').forEach(u => u.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
